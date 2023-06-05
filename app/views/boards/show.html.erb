@@ -1,0 +1,16 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+  <h1 class="h3 mb-0 text-gray-800"><%= @board.name %></h1>
+  <div>
+    <%= link_to 'All Board', boards_url, class: 'btn btn-primary' %>
+    <%= link_to 'New', new_board_url, class: 'btn btn-info' %>
+  </div>
+</div>
+
+<h6>Email: <%= @board.email %></h6>
+<div class="row">
+  <% @board.cells.group_by(&:row).each do |row, cells| %>
+    <div class="d-flex flex-row">
+      <%= render_cells(cells) %>
+    </div>
+  <% end %>
+</div>

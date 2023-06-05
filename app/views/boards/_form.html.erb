@@ -1,0 +1,11 @@
+<%= bootstrap_form_with model: @board, local: true do |f| %>
+
+  <%= f.text_field :name %>
+  <%= f.email_field :email %>
+  <%= f.number_field :width %>
+  <%= f.number_field :height %>
+  <%= f.number_field :mines_count %>
+
+
+  <%= f.submit 'Generate Board', class: 'btn btn-primary' %>
+<% end %>

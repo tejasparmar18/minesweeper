@@ -1,0 +1,25 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+  <h1 class="h3 mb-0 text-gray-800">All Boards</h1>
+  <%= link_to 'New', new_board_url, class: 'btn btn-primary' %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Created At</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @boards.each do |board| %>
+    <tr>
+      <th scope="row"><%= link_to board.name, board_url(board) %></th>
+      <td><%= board.email %></td>
+      <td><%= board.created_at.strftime('%B %d, %Y %H:%M:%S %Z') %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%== pagy_bootstrap_nav(@pagy) %>
