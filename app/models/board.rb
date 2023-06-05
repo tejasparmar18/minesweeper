@@ -12,8 +12,9 @@ class Board < ApplicationRecord
   validates :height, numericality: { only_integer: true, greater_than_or_equal_to: 2 }
   validates :width, numericality: { only_integer: true, greater_than_or_equal_to: 2 }
   validates :mines_count, numericality: { only_integer: true, greater_than: 0 }
+  validates_with BoardValidator
 
-  after_validation :create_cells
+  before_save :create_cells
 
   scope :by_recent, -> { order(id: :desc) }
 

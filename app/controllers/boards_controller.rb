@@ -8,6 +8,10 @@ class BoardsController < ApplicationController
     @pagy, @boards = pagy(Board.by_recent, items: 10)
   end
 
+  def all
+    @boards = Board.all
+  end
+
   def new
     @board = Board.new
   end

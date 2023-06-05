@@ -2,5 +2,9 @@
 
 Rails.application.routes.draw do
   root 'boards#new'
-  resources :boards
+  resources :boards do
+    collection do
+      get :all
+    end
+  end
 end

@@ -8,7 +8,7 @@ RSpec.describe 'Boards', type: :feature do
   describe 'Index View' do
     before { visit boards_path }
 
-    it 'displays all boards' do
+    it 'displays boards' do
       expect(page).to have_selector('table tbody tr', count: Board.count)
     end
 
@@ -20,6 +20,20 @@ RSpec.describe 'Boards', type: :feature do
 
     it 'displays pagination links' do
       expect(page).to have_selector('.pagination')
+    end
+  end
+
+  describe 'All View' do
+    before { visit all_boards_path }
+
+    it 'displays all boards' do
+      expect(page).to have_selector('table tbody tr', count: Board.count)
+    end
+
+    it 'displays the correct table headers' do
+      expect(page).to have_selector('table thead th', text: 'Name')
+      expect(page).to have_selector('table thead th', text: 'Email')
+      expect(page).to have_selector('table thead th', text: 'Created At')
     end
   end
 

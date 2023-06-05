@@ -21,6 +21,19 @@ RSpec.describe BoardsController, type: :controller do
     end
   end
 
+  describe 'GET #all' do
+    it 'assigns all boards' do
+      boards = create_list(:board, 50)
+      get :all
+      expect(assigns(:boards)).to eq(boards)
+    end
+
+    it 'renders the all template' do
+      get :all
+      expect(response).to render_template(:all)
+    end
+  end
+
   describe 'GET #new' do
     it 'returns a success response' do
       get :new
@@ -77,6 +90,13 @@ RSpec.describe BoardsController, type: :controller do
       it 're-renders the new template' do
         post :create, params: invalid_params
         expect(response).to render_template(:new)
+      end
+
+      it 'does not create a new board and adds an error to mines_count attribute' do
+        post :create, params: { board: attributes_for(:board, width: 10, height: 10, mines_count: 100) }
+        expect(response).to render_template(:new)
+        expect(Board.count).to eq(0)
+        expect(assigns(:board).errors[:mines_count]).to include('Number of mines must be less than the number of cells(100)')
       end
     end
   end

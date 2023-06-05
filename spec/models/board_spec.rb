@@ -11,6 +11,18 @@ RSpec.describe Board, type: :model do
     it { should validate_numericality_of(:height).only_integer.is_greater_than_or_equal_to(2) }
     it { should validate_numericality_of(:width).only_integer.is_greater_than_or_equal_to(2) }
     it { should validate_numericality_of(:mines_count).only_integer.is_greater_than(0) }
+
+    it 'is invalid when mines_count is greater than or equal to cells count' do
+      board = build(:board, width: 10, height: 10, mines_count: 100)
+      expect(board).to be_invalid
+      expect(board.errors[:mines_count]).to include('Number of mines must be less than the number of cells(100)')
+    end
+
+    it 'is valid when mines_count is less than cells count' do
+      board = build(:board, width: 10, height: 10, mines_count: 50)
+      expect(board).to be_valid
+      expect(board.errors[:mines_count]).to be_empty
+    end
   end
 
   describe 'associations' do
